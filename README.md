@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Description
+
+In this project, I have created a chrome extension named 'chime' which is basically a chit-chat app for small talks with your friends or connection during the work.
+The chats are their on temporary bases unless you close the browser session, thus making it perfectly ideal for a small talk.
+
+
 ## Available Scripts
 
 In the project directory, you can run:
