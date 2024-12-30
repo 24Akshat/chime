@@ -1,0 +1,83 @@
+.login-container{
+    height: 96%;
+    position: relative;
+    padding: 0.5rem;
+}
+
+.login-navbar-close{
+    position: absolute;
+    right: 0.5rem;
+}
+.login-navbar-cross-icon{
+    height: 2.5rem;
+    transition: transform 0.5s ease;
+}
+.login-navbar-cross-icon:hover{
+    cursor: pointer;
+    transform: rotate(90deg);
+}
+
+.login-icon{
+    width: fit-content;
+    margin: 0rem auto 0rem auto;
+}
+.login-icon-img{
+    border-radius: 50%;
+    height: 8rem;
+}
+
+.login-form{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.login-form-username{
+    margin-bottom: 1.5rem;
+}
+.login-form-password{
+    margin-bottom: 2.5rem;
+}
+.login-form-username-input, .login-form-password-input{
+    border: 1px solid black;
+    padding-left: 0.5rem;
+    font-size: 15px;
+    height: 1.5rem;
+    width: 87.6%;
+}
+.login-form-password-input{
+    margin-right: 0.25rem;
+}
+.login-form-username-text, .login-form-password-text{
+    margin: 0rem;
+}
+.login-form-password-fields{
+    display: flex;
+}
+.login-form-password-hide{
+    height: 1.75rem;
+}
+.login-form-password-hide:hover{
+    cursor: pointer;
+}
+.login-form-password-show{
+    height: 1.75rem;
+}
+.login-form-password-show:hover{
+    cursor: pointer;
+}
+.login-form-submit-btn{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+.login-form-submit-btn:hover{
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+.login-form-submit-text{
+    width: fit-content;
+    margin: 0.5rem auto 0.5rem auto;
+}

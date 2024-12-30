@@ -3,4 +3,8 @@ body{
   margin: 0;
   width: 700px;
   height: 400px;
+  font-family: 'Poppins';
+}
+#root{
+  height: 100%;
 }

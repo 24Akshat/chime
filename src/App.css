@@ -1,0 +1,13 @@
+.App{
+    height: 100%;
+    font-size: 17px;
+    font-weight: 500;
+}
+input{
+    outline: none;
+    caret-color: black;
+}
+::selection{
+    background-color: black;
+    color: white;
+}

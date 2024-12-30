@@ -1,0 +1,48 @@
+.main-container{
+    height: 96%;
+    position: relative;
+    padding: 0.5rem;
+}
+
+.main-navbar-close{
+    position: absolute;
+    right: 0.5rem;
+}
+.main-navbar-cross-icon{
+    height: 2.5rem;
+    transition: transform 0.5s ease;
+}
+.main-navbar-cross-icon:hover{
+    cursor: pointer;
+    transform: rotate(90deg);
+}
+
+.main-icon{
+    width: fit-content;
+    margin: 0rem auto 2rem auto;
+}
+.main-icon-img{
+    border-radius: 50%;
+    height: 8rem;
+}
+
+.main-btns{
+    display: grid;
+    place-items: center;
+}
+.main-btn-login, .main-btn-register{
+    border: 1px solid black;
+    width: 50%;
+    margin-bottom: 2rem;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+.main-btn-login:hover, .main-btn-register:hover{
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+.main-btn-login-text, .main-btn-register-text{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
