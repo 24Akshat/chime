@@ -7,6 +7,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 In this project, I have created a chrome extension named 'chime' which is basically a chit-chat app for small talks with your friends or connection during the work.
 The chats are their on temporary bases unless you close the browser session, thus making it perfectly ideal for a small talk.
 
+The "build" consists the files for the extension and needed to be uploaded to the chrome://extensions
+
+The other files are the source code of the extension.
 
 ## Available Scripts
 
