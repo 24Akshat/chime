@@ -5,6 +5,7 @@ import icon from './icon.png'
 import cross from './cross.png'
 import eyesClose from './eyesClose.png'
 import eyesOpen from './eyesOpen.png'
+import back from './back.png'
 
 export const assets = {
     icon,
@@ -13,5 +14,6 @@ export const assets = {
     icon48,
     cross,
     eyesClose,
-    eyesOpen
+    eyesOpen,
+    back
 };

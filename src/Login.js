@@ -2,17 +2,24 @@ import { useState } from "react";
 import "./Login.css";
 import { assets } from "./assets/assets";
 
-function Login() {
+function Login({setPage}) {
   const [passwHide, setPassHide] = useState(true);
   return (
     <div className="login-container">
-      <nav
-        onClick={() => {
-          window.close();
-        }}
-        className="login-navbar-close"
-      >
+      <nav className="login-navbar">
         <img
+          onClick={() => {
+            setPage('main');
+          }}
+          className="login-navbar-back-icon"
+          src={assets.back}
+          alt="back"
+        />
+        <p className="login-navbar-text">LOGIN</p>
+        <img
+          onClick={() => {
+            window.close();
+          }}
           className="login-navbar-cross-icon"
           src={assets.cross}
           alt="close"

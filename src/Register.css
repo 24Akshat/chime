@@ -1,108 +1,108 @@
-.login-container{
+.register-container{
     height: 96%;
     position: relative;
     padding: 0.5rem;
 }
 
-.login-navbar{
+.register-navbar{
     position: absolute;
     width: 98%;
 }
-.login-navbar-cross-icon{
+.register-navbar-cross-icon{
     position: absolute;
     right: 0rem;
     height: 2.5rem;
     transition: transform 0.5s ease;
 }
-.login-navbar-cross-icon:hover{
+.register-navbar-cross-icon:hover{
     cursor: pointer;
     transform: rotate(90deg);
 }
-.login-navbar-back-icon{
+.register-navbar-back-icon{
     position: absolute;
     left: 0rem;
     height: 2.5rem;
     transition: left 0.5s ease;
 }
-.login-navbar-back-icon:hover{
+.register-navbar-back-icon:hover{
     cursor: pointer;
     left: -0.5rem;
 }
-.login-navbar-text{
+.register-navbar-text{
     position: absolute;
-    left: 46.5%;
+    left: 45%;
     width: fit-content;
     margin: 0.5rem auto 0.5rem auto;
     letter-spacing: normal;
     transition: left 0.5s ease, letter-spacing 0.5s ease;
 }
-.login-navbar-text:hover{
-    left: 46%;
+.register-navbar-text:hover{
+    left: 44%;
     letter-spacing: 0.1rem;
 }
 
-.login-icon{
+.register-icon{
     width: fit-content;
     margin: 1rem auto 0rem auto;
 }
-.login-icon-img{
+.register-icon-img{
     border-radius: 50%;
     height: 8rem;
 }
 
-.login-form{
+.register-form{
     width: 50%;
     margin-left: auto;
     margin-right: auto;
 }
-.login-form-username{
+.register-form-username{
     margin-bottom: 1rem;
 }
-.login-form-password{
+.register-form-password{
     margin-bottom: 2rem;
 }
-.login-form-username-input, .login-form-password-input{
+.register-form-username-input, .register-form-password-input{
     border: 1px solid black;
     padding-left: 0.5rem;
     font-size: 15px;
     height: 1.5rem;
     width: 87.6%;
 }
-.login-form-password-input{
+.register-form-password-input{
     margin-right: 0.25rem;
 }
-.login-form-username-text, .login-form-password-text{
+.register-form-username-text, .register-form-password-text{
     margin: 0rem;
 }
-.login-form-password-fields{
+.register-form-password-fields{
     display: flex;
 }
-.login-form-password-hide{
+.register-form-password-hide{
     height: 1.75rem;
 }
-.login-form-password-hide:hover{
+.register-form-password-hide:hover{
     cursor: pointer;
 }
-.login-form-password-show{
+.register-form-password-show{
     height: 1.75rem;
 }
-.login-form-password-show:hover{
+.register-form-password-show:hover{
     cursor: pointer;
 }
-.login-form-submit-btn{
+.register-form-submit-btn{
     width: 50%;
     margin-left: auto;
     margin-right: auto;
     border: 1px solid black;
-    transition: background-color 0.5s ease, color 0.5s ease,padding 0.5s ease;
+    transition: background-color 0.5s ease, color 0.5s ease, padding 0.5s ease;
 }
-.login-form-submit-btn:hover{
+.register-form-submit-btn:hover{
     cursor: pointer;
     background-color: black;
     color: white;
     padding: 0rem 1rem;
 }
-.login-form-submit-text{
+.register-form-submit-text{
     width: fit-content;
     margin: 0.5rem auto 0.5rem auto;
 }

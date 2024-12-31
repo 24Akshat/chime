@@ -1,7 +1,7 @@
 import "./Main.css";
 import { assets } from "./assets/assets";
 
-function Main() {
+function Main({setPage}) {
   return (
     <div className="main-container">
       <nav onClick={() => {window.close()}} className="main-navbar-close">
@@ -15,10 +15,10 @@ function Main() {
         <img className="main-icon-img" src={assets.icon} alt="chime" />
       </div>
       <div className="main-btns">
-        <div className="main-btn-login">
+        <div onClick={() => {setPage('login')}} className="main-btn-login">
           <p className="main-btn-login-text">Login</p>
         </div>
-        <div className="main-btn-register">
+        <div onClick={() => {setPage('register')}} className="main-btn-register">
           <p className="main-btn-register-text">Register</p>
         </div>
       </div>
