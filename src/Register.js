@@ -4,6 +4,37 @@ import { useState } from "react";
 
 function Register({ setPage }) {
   const [passwHide, setPassHide] = useState(true);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [usernameEmpt, setUsernameEmpt] = useState(false);
+  const [passwEmpt, setPasswEmpt] = useState(false);
+  const handleRegisterSubmit = async () => {
+    if (username === "" && password === "") {
+      setUsernameEmpt(true);
+      setPasswEmpt(true);
+      return;
+    }
+    if (password === "") {
+      setPasswEmpt(true);
+      return;
+    } else if (username === "") {
+      setUsernameEmpt(true);
+      return;
+    }
+    const data = {
+      username: username,
+      password: password,
+    };
+    const res = await fetch("http://localhost:8000/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    console.log(body);
+  };
   return (
     <div className="register-container">
       <nav className="register-navbar">
@@ -30,20 +61,40 @@ function Register({ setPage }) {
       </div>
       <div className="register-form">
         <div className="register-form-username">
-          <p className="register-form-username-text">USERNAME</p>
+          <p className="register-form-username-text">
+            USERNAME {!usernameEmpt ? "" : "(FILL THE FIELD)"}
+          </p>
           <input
-            className="register-form-username-input"
+            className={
+              !usernameEmpt
+                ? "register-form-username-input"
+                : "register-form-username-input-empty"
+            }
             type="text"
             placeholder="USERNAME"
+            onChange={(e) => {
+              setUsername(e.target.value);
+              setUsernameEmpt(false);
+            }}
           />
         </div>
         <div className="register-form-password">
-          <p className="register-form-password-text">PASSWORD</p>
+          <p className="register-form-password-text">
+            PASSWORD {!passwEmpt ? "" : "(FILL THE FIELD)"}
+          </p>
           <div className="register-form-password-fields">
             <input
-              className="register-form-password-input"
+              className={
+                !passwEmpt
+                  ? "register-form-password-input"
+                  : "register-form-password-input-empty"
+              }
               type={passwHide ? "password" : "text"}
               placeholder="PASSWORD"
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setPasswEmpt(false);
+              }}
             />
             <img
               className={
@@ -59,7 +110,12 @@ function Register({ setPage }) {
             />
           </div>
         </div>
-        <div className="register-form-submit-btn">
+        <div
+          onClick={() => {
+            handleRegisterSubmit();
+          }}
+          className="register-form-submit-btn"
+        >
           <p className="register-form-submit-text">SUBMIT</p>
         </div>
       </div>

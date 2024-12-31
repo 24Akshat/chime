@@ -16,10 +16,10 @@ function Main({setPage}) {
       </div>
       <div className="main-btns">
         <div onClick={() => {setPage('login')}} className="main-btn-login">
-          <p className="main-btn-login-text">Login</p>
+          <p className="main-btn-login-text">LOGIN</p>
         </div>
         <div onClick={() => {setPage('register')}} className="main-btn-register">
-          <p className="main-btn-register-text">Register</p>
+          <p className="main-btn-register-text">REGISTER</p>
         </div>
       </div>
     </div>

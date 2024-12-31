@@ -71,6 +71,16 @@
 .register-form-password-input{
     margin-right: 0.25rem;
 }
+.register-form-username-input-empty, .register-form-password-input-empty{
+    border: 2px solid red;
+    padding-left: 0.5rem;
+    font-size: 15px;
+    height: 1.5rem;
+    width: 87.6%;
+}
+.register-form-password-input-empty{
+    margin-right: 0.25rem;
+}
 .register-form-username-text, .register-form-password-text{
     margin: 0rem;
 }
