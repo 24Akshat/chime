@@ -71,6 +71,16 @@
 .login-form-password-input{
     margin-right: 0.25rem;
 }
+.login-form-username-input-empty, .login-form-password-input-empty{
+    border: 2px solid red;
+    padding-left: 0.5rem;
+    font-size: 15px;
+    height: 1.5rem;
+    width: 87.6%;
+}
+.login-form-password-input-empty{
+    margin-right: 0.25rem;
+}
 .login-form-username-text, .login-form-password-text{
     margin: 0rem;
 }
@@ -103,6 +113,23 @@
     padding: 0rem 1rem;
 }
 .login-form-submit-text{
+    width: fit-content;
+    margin: 0.5rem auto 0.5rem auto;
+}
+.login-form-success-btn{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid rgb(0, 255, 34);
+    background-color: rgb(0, 255, 34);
+    transition: background-color 0.5s ease, color 0.5s ease,padding 0.5s ease;
+}
+.login-form-success-btn:hover{
+    cursor: pointer;
+    background-color: rgb(0, 225, 30);
+    padding: 0rem 1rem;
+}
+.login-form-success-text{
     width: fit-content;
     margin: 0.5rem auto 0.5rem auto;
 }

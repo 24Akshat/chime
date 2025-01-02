@@ -8,6 +8,8 @@ function Register({ setPage }) {
   const [password, setPassword] = useState("");
   const [usernameEmpt, setUsernameEmpt] = useState(false);
   const [passwEmpt, setPasswEmpt] = useState(false);
+  const [usernameExists, setUsernameExistence] = useState(false);
+  const [success, setSuccess] = useState(false);
   const handleRegisterSubmit = async () => {
     if (username === "" && password === "") {
       setUsernameEmpt(true);
@@ -33,7 +35,14 @@ function Register({ setPage }) {
       body: JSON.stringify(data),
     });
     const body = await res.json();
-    console.log(body);
+    if (res.status === 401) {
+      setUsernameExistence(true);
+      return;
+    }
+    setSuccess(true);
+    setTimeout(() => {
+      setPage("login");
+    }, 1500);
   };
   return (
     <div className="register-container">
@@ -62,7 +71,8 @@ function Register({ setPage }) {
       <div className="register-form">
         <div className="register-form-username">
           <p className="register-form-username-text">
-            USERNAME {!usernameEmpt ? "" : "(FILL THE FIELD)"}
+            USERNAME {!usernameEmpt ? "" : "(FILL THE FIELD)"}{" "}
+            {!usernameExists ? "" : "(ALREADY IN USE)"}
           </p>
           <input
             className={
@@ -75,6 +85,7 @@ function Register({ setPage }) {
             onChange={(e) => {
               setUsername(e.target.value);
               setUsernameEmpt(false);
+              setUsernameExistence(false);
             }}
           />
         </div>
@@ -114,9 +125,19 @@ function Register({ setPage }) {
           onClick={() => {
             handleRegisterSubmit();
           }}
-          className="register-form-submit-btn"
+          className={
+            success ? "register-form-success-btn" : "register-form-submit-btn"
+          }
         >
-          <p className="register-form-submit-text">SUBMIT</p>
+          <p
+            className={
+              success
+                ? "register-form-success-text"
+                : "register-form-submit-text"
+            }
+          >
+            {success ? "SUCCESS" : "SUBMIT"}
+          </p>
         </div>
       </div>
     </div>

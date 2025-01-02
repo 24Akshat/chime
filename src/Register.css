@@ -112,7 +112,24 @@
     color: white;
     padding: 0rem 1rem;
 }
+.register-form-success-btn{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid rgb(0, 255, 34);
+    background-color: rgb(0, 255, 34);
+    transition: background-color 0.5s ease, color 0.5s ease, padding 0.5s ease;
+}
+.register-form-success-btn:hover{
+    cursor: pointer;
+    background-color: rgb(0, 225, 30);
+    padding: 0rem 1rem;
+}
 .register-form-submit-text{
+    width: fit-content;
+    margin: 0.5rem auto 0.5rem auto;
+}
+.register-form-success-text{
     width: fit-content;
     margin: 0.5rem auto 0.5rem auto;
 }
