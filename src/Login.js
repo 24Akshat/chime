@@ -42,7 +42,7 @@ function Login({ setPage }) {
     }
     setSuccess(true);
     setTimeout(() => {
-      setPage("main");
+      setPage("chats");
     }, 1500);
   };
   return (

@@ -1,0 +1,96 @@
+.ui-container{
+    height: 96%;
+    position: relative;
+    padding: 0.5rem;
+}
+
+.ui-navbar{
+    position: absolute;
+    width: 98%;
+}
+.ui-navbar-cross-icon{
+    position: absolute;
+    right: 0rem;
+    height: 2.5rem;
+    transition: transform 0.5s ease;
+}
+.ui-navbar-cross-icon:hover{
+    cursor: pointer;
+    transform: rotate(90deg);
+}
+.ui-navbar-logout-icon{
+    position: absolute;
+    left: 0rem;
+    height: 2.25rem;
+    transition: left 0.5s ease;
+}
+.ui-navbar-logout-icon:hover{
+    cursor: pointer;
+    left: -0.5rem;
+}
+.ui-navbar-add{
+    position: absolute;
+    left: 36.5%;
+    width: fit-content;
+    margin: 0.5rem auto 0.5rem auto;
+    border: 1px solid black;
+    padding: 0rem 0.5rem;
+    transition: left 0.5s ease, padding 0.5s ease, color 0.5s ease, background-color 0.5s ease;
+}
+.ui-navbar-add:hover{
+    cursor: pointer;
+    left: 34.15%;
+    padding: 0rem 1.5rem;
+    background-color: black;
+    color: white;
+    transition: left 0.5s ease, padding 0.5s ease, color 0.5s ease, background-color 0.5s ease;
+}
+.ui-navbar-add:active{
+    cursor: pointer;
+    left: 34.15%;
+    padding: 0rem 1.5rem;
+    background-color: white;
+    color: black;
+    transition: left 0.5s ease, padding 0.5s ease, color 0s ease, background-color 0s ease;
+}
+
+.ui-main{
+    /* border: 1px solid black; */
+    margin-top: 2.5rem;
+    height: 90%;
+    display: flex;
+}
+.ui-main-connections{
+    border: 1px solid black;
+    height: 98.25%;
+    width: 27%;
+    margin-top: 0.25rem;
+}
+.ui-main-chat{
+    width: 72%;
+    margin-left: 0.5rem;
+    margin-top: 0.25rem;
+    position: relative;
+}
+.ui-main-chat-receiver{
+    border: 1px solid black;
+    background-color: black;
+    margin-bottom: 0.5rem;
+    height: 10%;
+}
+.ui-main-chat-data{
+    /* border: 1px solid black; */
+    height: 71%;
+    overflow-y: auto;
+    display: flex;
+    padding: 0.5rem;
+    flex-direction: column-reverse;
+    scrollbar-width: none;
+}
+.ui-main-chat-send-fields{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 10%;
+    border: 1px solid black;
+}
