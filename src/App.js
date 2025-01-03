@@ -7,17 +7,19 @@ import { useState } from "react";
 
 function App() {
   const [page, setPage] = useState("main");
+  const [username, setUsername] = useState("");
   return (
     <div className="App">
       {page === "main" ? (
         <Main setPage={setPage} />
       ) : page === "login" ? (
-        <Login setPage={setPage} />
+        <Login setPage={setPage} setUserName={setUsername} />
       ) : page === "register" ? (
         <Register setPage={setPage} />
       ) : (
-        <UI setPage={setPage} />
+        <UI setPage={setPage} username={username} />
       )}
+      {/* <UI setPage={setPage} username={username} /> */}
     </div>
   );
 }

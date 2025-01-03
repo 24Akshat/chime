@@ -25,6 +25,17 @@ const User = mongoose.model("user", userSchema);
 
 //Routes
 
+app.route("/add-new-user").post(async (req, res) => {
+  const { username, senderUsername } = req.body;
+  const user = await User.findOne({ username: username });
+  if (!user) {
+    return res.status(404).json({ username: "not found" });
+  }
+  user.requests.push(senderUsername);
+  user.save();
+  return res.status(200).json({ request: "sent" });
+});
+
 app.route("/login").post(async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username: username });

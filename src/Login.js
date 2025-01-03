@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Login.css";
 import { assets } from "./assets/assets";
 
-function Login({ setPage }) {
+function Login({ setPage, setUserName }) {
   const [passwHide, setPassHide] = useState(true);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -41,6 +41,7 @@ function Login({ setPage }) {
       return;
     }
     setSuccess(true);
+    setUserName(username);
     setTimeout(() => {
       setPage("chats");
     }, 1500);

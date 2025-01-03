@@ -7,6 +7,7 @@ import eyesClose from "./eyesClose.png";
 import eyesOpen from "./eyesOpen.png";
 import back from "./back.png";
 import logout from "./logout.png";
+import send from "./send.png";
 
 export const assets = {
   icon,
@@ -18,4 +19,5 @@ export const assets = {
   eyesOpen,
   back,
   logout,
+  send,
 };
