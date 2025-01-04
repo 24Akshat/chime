@@ -8,6 +8,8 @@ import eyesOpen from "./eyesOpen.png";
 import back from "./back.png";
 import logout from "./logout.png";
 import send from "./send.png";
+import add from "./add.png";
+import remove from "./remove.png";
 
 export const assets = {
   icon,
@@ -20,4 +22,6 @@ export const assets = {
   back,
   logout,
   send,
+  add,
+  remove,
 };

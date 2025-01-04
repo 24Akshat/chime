@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./UI.css";
 import { assets } from "./assets/assets";
+import { connect } from "mongoose";
 
 function UI({ setPage, username }) {
   const [receiverSelected, setReceiverSelection] = useState(false);
@@ -9,6 +10,36 @@ function UI({ setPage, username }) {
   const [reqUsernameEmpt, setEmpt] = useState(false);
   const [reqUserFound, setFound] = useState(true);
   const [newSuccess, setNewSuccess] = useState(false);
+  const [requestPage, setReqPage] = useState(false);
+  const [reqArray, setReqArr] = useState([]);
+  const [connectionsArray, setConArray] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = { username: username };
+      const res = await fetch("http://localhost:8000/get-connections", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const response = await res.json();
+      setConArray(response);
+    };
+    fetchData();
+  }, [username]);
+  const handleReqClick = async () => {
+    const data = { username: username };
+    const res = await fetch("http://localhost:8000/get-requests", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const response = await res.json();
+    setReqArr(response);
+  };
   const handleConnectSubmit = async () => {
     if (reqUsername === "") {
       setEmpt(true);
@@ -30,11 +61,67 @@ function UI({ setPage, username }) {
       return;
     }
     setNewSuccess(true);
+    const requests = await fetch("http://localhost:8000/get-requests", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const req = await requests.json();
+    console.log(req);
     setTimeout(() => {
       setNewSuccess(false);
       setAddNew(false);
     }, 1000);
     return;
+  };
+  const handleAddCon = async (user) => {
+    const data = { username: user, ownerUsername: username };
+    const res = await fetch("http://localhost:8000/add-connection", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const conns = await fetch("http://localhost:8000/get-connections", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: username }),
+    });
+    const con = await conns.json();
+    setConArray(con);
+    const reqs = await fetch("http://localhost:8000/get-requests", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: username }),
+    });
+    const req = await reqs.json();
+    setReqArr(req);
+  };
+  const removeRequest = async (user) => {
+    const data = { usernameDel: user, ownerUser: username };
+    const res = await fetch("http://localhost:8000/remove-request", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const newReqs = await fetch("http://localhost:8000/get-requests", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: username }),
+    });
+    const newReq = await newReqs.json();
+    setReqArr(newReq);
   };
   return (
     <div className="ui-container">
@@ -81,6 +168,46 @@ function UI({ setPage, username }) {
       ) : (
         <></>
       )}
+      {requestPage ? (
+        <div className="ui-container-main-requests">
+          <div className="ui-container-main-requests-head">
+            <p className="heading">REQUESTS</p>
+            <img
+              onClick={() => {
+                setReqPage(false);
+              }}
+              className="ui-container-main-requests-close"
+              src={assets.cross}
+              alt="close"
+            />
+            <div className="ui-container-main-requests-elem">
+              {reqArray.map((data, key) => (
+                <div id={key} className="ui-container-main-requests-list">
+                  {data}
+                  <img
+                    className="accept-req"
+                    src={assets.add}
+                    alt="accept"
+                    onClick={() => {
+                      handleAddCon(data);
+                    }}
+                  />{" "}
+                  <img
+                    className="decline-req"
+                    src={assets.remove}
+                    alt="decline"
+                    onClick={() => {
+                      removeRequest(data);
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
       <nav className="ui-navbar">
         <img
           onClick={() => {
@@ -109,31 +236,27 @@ function UI({ setPage, username }) {
       </nav>
       <div className="ui-main">
         <div className="ui-main-connections">
-          <div className="ui-main-connection-requests">REQUESTS</div>
+          <div
+            onClick={() => {
+              setReqPage(true);
+              handleReqClick();
+            }}
+            className="ui-main-connection-requests"
+          >
+            REQUESTS
+          </div>
           <div className="ui-main-connection-list">
-            <div
-              onClick={() => {
-                setReceiverSelection(true);
-              }}
-              className="contact-selected"
-            >
-              hello
-            </div>
-            <div className="contact">hello</div>
-            <div className="contact">hello</div>
-            <div className="contact">hello</div>
-            <div className="contact">hello</div>
-            <div className="contact">hello</div>
-            <div className="contact">hello</div>
-            <div className="contact">hello</div>
-            <div className="contact">hello</div>
-            <div className="contact">hello</div>
-            <div className="contact">hello</div>
-            <div className="contact">hello</div>
-            <div className="contact">hello</div>
-            <div className="contact">hello</div>
-            <div className="contact">hello</div>
-            <div className="contact">hello</div>
+            {connectionsArray.map((data, key) => (
+              <div
+                id={key}
+                onClick={() => {
+                  setReceiverSelection(true);
+                }}
+                className="contact-selected"
+              >
+                {data}
+              </div>
+            ))}
           </div>
         </div>
         <div className="ui-main-chat">

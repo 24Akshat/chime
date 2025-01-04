@@ -24,7 +24,27 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model("user", userSchema);
 
 //Routes
-
+app.route("/get-requests").post(async (req, res) => {
+  const { username } = req.body;
+  const user = await User.findOne({ username: username });
+  return res.send(user.requests);
+});
+app.route("/get-connections").post(async (req, res) => {
+  const { username } = req.body;
+  const user = await User.findOne({ username: username });
+  return res.send(user.connections);
+});
+app.route("/add-connection").post(async (req, res) => {
+  const { username, ownerUsername } = req.body;
+  const user = await User.findOne({ username: ownerUsername });
+  const recUser = await User.findOne({ username: username });
+  user.connections.push(username);
+  user.requests.pull(username);
+  recUser.connections.push(ownerUsername);
+  recUser.save();
+  user.save();
+  return res.status(200).json({ status: "success" });
+});
 app.route("/add-new-user").post(async (req, res) => {
   const { username, senderUsername } = req.body;
   const user = await User.findOne({ username: username });
@@ -34,6 +54,13 @@ app.route("/add-new-user").post(async (req, res) => {
   user.requests.push(senderUsername);
   user.save();
   return res.status(200).json({ request: "sent" });
+});
+app.route("/remove-request").post(async (req, res) => {
+  const { usernameDel, ownerUser } = req.body;
+  const user = await User.findOne({ username: ownerUser });
+  user.requests.pull(usernameDel);
+  user.save();
+  return res.status(200).json({ status: "success" });
 });
 
 app.route("/login").post(async (req, res) => {
