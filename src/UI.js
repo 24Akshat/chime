@@ -5,6 +5,8 @@ import { connect } from "mongoose";
 
 function UI({ setPage, username }) {
   const [receiverSelected, setReceiverSelection] = useState(false);
+  const [selectedUsername, setSelectedUsername] = useState("");
+  const [selectedId, setSelectedId] = useState(null);
   const [addNew, setAddNew] = useState(false);
   const [reqUsername, setUsername] = useState("");
   const [reqUsernameEmpt, setEmpt] = useState(false);
@@ -250,9 +252,17 @@ function UI({ setPage, username }) {
               <div
                 id={key}
                 onClick={() => {
-                  setReceiverSelection(true);
+                  if (selectedUsername === data) {
+                    setReceiverSelection(false);
+                    setSelectedId(null);
+                    setSelectedUsername("");
+                  } else {
+                    setReceiverSelection(true);
+                    setSelectedUsername(data);
+                    setSelectedId(key);
+                  }
                 }}
-                className="contact-selected"
+                className={selectedId === key ? "selected-contact" : "contact"}
               >
                 {data}
               </div>
@@ -264,7 +274,7 @@ function UI({ setPage, username }) {
             <>
               {" "}
               <div className="ui-main-chat-receiver">
-                <p className="ui-main-chat-receiver-name">HELLO</p>
+                <p className="ui-main-chat-receiver-name">{selectedUsername}</p>
               </div>
               <div className="ui-main-chat-data">
                 <div className="data">hello</div>
