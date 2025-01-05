@@ -43,6 +43,7 @@ function Login({ setPage, setUserName }) {
     setSuccess(true);
     setUserName(username);
     setTimeout(() => {
+      localStorage.setItem("userToken", body.token);
       setPage("chats");
     }, 1500);
   };

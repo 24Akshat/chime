@@ -213,6 +213,7 @@ function UI({ setPage, username }) {
       <nav className="ui-navbar">
         <img
           onClick={() => {
+            localStorage.removeItem("userToken");
             setPage("main");
           }}
           className="ui-navbar-logout-icon"

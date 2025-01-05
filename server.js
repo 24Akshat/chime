@@ -1,8 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
 const PORT = 8000;
 const app = express();
+
+const SECRET_KEY = "1Rci},.0A.q7wkD^-a#[RwV;hX+j@h`s";
 
 //Middlewares
 app.use(express.json());
@@ -70,7 +73,8 @@ app.route("/login").post(async (req, res) => {
     return res.status(404).json({ username: "not found" });
   }
   if (user.password === password) {
-    return res.status(200).json({ status: "successfull" });
+    const token = jwt.sign({ username: username }, SECRET_KEY);
+    return res.status(200).json({ status: "successfull", token: token });
   }
   return res.status(401).json({ status: "incorrect password" });
 });
