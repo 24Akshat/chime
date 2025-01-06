@@ -240,8 +240,11 @@
     overflow-y: auto;
     display: flex;
     padding: 0.5rem;
-    flex-direction: column-reverse;
+    flex-direction: column;
     scrollbar-width: none;
+}
+.data-send{
+    margin-left: auto;
 }
 .ui-main-chat-send-fields{
     position: absolute;

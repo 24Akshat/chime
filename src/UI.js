@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./UI.css";
 import { assets } from "./assets/assets";
-import { connect } from "mongoose";
+import { io } from "socket.io-client";
 
 function UI({ setPage, username }) {
   const [receiverSelected, setReceiverSelection] = useState(false);
@@ -15,7 +15,28 @@ function UI({ setPage, username }) {
   const [requestPage, setReqPage] = useState(false);
   const [reqArray, setReqArr] = useState([]);
   const [connectionsArray, setConArray] = useState([]);
+  const [message, setMessage] = useState("");
+  const [socket, setSocket] = useState(null);
+  const [room, setRoom] = useState("");
+  const [messages, setMessagesArray] = useState([]);
+
   useEffect(() => {
+    const socket = io("http://localhost:8000");
+    setSocket(socket);
+    socket.emit("username", username);
+    socket.on("joinRoom", (room) => {
+      console.log("joined room");
+    });
+
+    socket.on("message", (message, sender, roomName) => {
+      const msg =
+        sender === username
+          ? { direction: "from", message: message, room: roomName }
+          : { direction: "to", message: message, room: roomName };
+      console.log(msg.room);
+      console.log(room);
+      setMessagesArray((prevMessages) => [...prevMessages, msg]);
+    });
     const fetchData = async () => {
       const data = { username: username };
       const res = await fetch("http://localhost:8000/get-connections", {
@@ -26,10 +47,24 @@ function UI({ setPage, username }) {
         body: JSON.stringify(data),
       });
       const response = await res.json();
+      response.map((data) => {
+        socket.emit("joinRoom", username, data);
+      });
       setConArray(response);
     };
     fetchData();
+    return () => {
+      socket.disconnect();
+    };
   }, [username]);
+  const sendMsg = () => {
+    const room = [selectedUsername, username].sort().join("_");
+    socket.emit("messageToUser", message, room, username, selectedUsername);
+    setMessage("");
+  };
+  const joinRoom = () => {
+    socket.emit("joinRoom", room, username, selectedUsername);
+  };
   const handleReqClick = async () => {
     const data = { username: username };
     const res = await fetch("http://localhost:8000/get-requests", {
@@ -80,7 +115,7 @@ function UI({ setPage, username }) {
   };
   const handleAddCon = async (user) => {
     const data = { username: user, ownerUsername: username };
-    const res = await fetch("http://localhost:8000/add-connection", {
+    await fetch("http://localhost:8000/add-connection", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -108,7 +143,7 @@ function UI({ setPage, username }) {
   };
   const removeRequest = async (user) => {
     const data = { usernameDel: user, ownerUser: username };
-    const res = await fetch("http://localhost:8000/remove-request", {
+    await fetch("http://localhost:8000/remove-request", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -213,7 +248,7 @@ function UI({ setPage, username }) {
       <nav className="ui-navbar">
         <img
           onClick={() => {
-            localStorage.removeItem("userToken");
+            // localStorage.removeItem("userToken");
             setPage("main");
           }}
           className="ui-navbar-logout-icon"
@@ -257,10 +292,13 @@ function UI({ setPage, username }) {
                     setReceiverSelection(false);
                     setSelectedId(null);
                     setSelectedUsername("");
+                    setRoom("");
                   } else {
                     setReceiverSelection(true);
                     setSelectedUsername(data);
+                    setRoom(`${[selectedUsername, username].sort().join("_")}`);
                     setSelectedId(key);
+                    joinRoom();
                   }
                 }}
                 className={selectedId === key ? "selected-contact" : "contact"}
@@ -278,33 +316,31 @@ function UI({ setPage, username }) {
                 <p className="ui-main-chat-receiver-name">{selectedUsername}</p>
               </div>
               <div className="ui-main-chat-data">
-                <div className="data">hello</div>
-                <div className="data">hello</div>
-                <div className="data">hello</div>
-                <div className="data">hello</div>
-                <div className="data">hello</div>
-                <div className="data">hello</div>
-                <div className="data">hello</div>
-                <div className="data">hello</div>
-                <div className="data">hello</div>
-                <div className="data">hello</div>
-                <div className="data">hello</div>
-                <div className="data">hello</div>
-                <div className="data">hello</div>
-                <div className="data">hello</div>
-                <div className="data">hello</div>
-                <div className="data">hello</div>
+                {messages.map((data) => (
+                  <div
+                    className={data.direction === "from" ? "data-send" : "data"}
+                  >
+                    {data.room !== room ? data.message : ""}
+                  </div>
+                ))}
               </div>
               <div className="ui-main-chat-send-fields">
                 <input
                   className="ui-main-chat-send-fields-input"
                   type="text"
                   placeholder="TYPE YOUR MESSAGE HERE..."
+                  value={message}
+                  onChange={(e) => {
+                    setMessage(e.target.value);
+                  }}
                 />
                 <img
                   src={assets.send}
                   className="ui-main-chat-send-fields-icon"
                   alt="send"
+                  onClick={() => {
+                    sendMsg();
+                  }}
                 />
               </div>
             </>

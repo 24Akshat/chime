@@ -1,9 +1,21 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const http = require("http");
+const { Server } = require("socket.io");
 const jwt = require("jsonwebtoken");
 const PORT = 8000;
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: [
+      "chrome-extension://hegdjjfdeocafkidebghllghkdeaeolj",
+      "http://localhost:3000",
+    ], // Your frontend URL
+    methods: ["GET", "POST"],
+  },
+});
 
 const SECRET_KEY = "1Rci},.0A.q7wkD^-a#[RwV;hX+j@h`s";
 
@@ -22,9 +34,35 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   connections: { type: [String] },
   requests: { type: [String] },
+  socketid: { type: String },
 });
 
 const User = mongoose.model("user", userSchema);
+
+//socket.io connection
+io.on("connection", (socket) => {
+  console.log("User connected: ", socket.id);
+  socket.on("username", async (username) => {
+    console.log(username);
+    const user = await User.findOne({ username: username });
+    user.socketid = socket.id;
+    user.save();
+  });
+  socket.on("messageToUser", async (message, room, owner, rec) => {
+    io.to(room).emit("message", `${message}`, owner, room);
+  });
+  socket.on("joinRoom", async (ownerUser, recUser) => {
+    const room = [ownerUser, recUser].sort().join("_");
+    console.log("joined room");
+    const owner = await User.findOne({ username: ownerUser });
+    const rec = await User.findOne({ username: recUser });
+    socket.join(room);
+    io.to(rec.socketid).emit("joinRoom");
+  });
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
+});
 
 //Routes
 app.route("/get-requests").post(async (req, res) => {
@@ -85,11 +123,11 @@ app.route("/register").post(async (req, res) => {
   if (user) {
     return res.status(401).json({ username: "already exists" });
   } else {
-    User.create({ username: username, password: password });
+    User.create({ username: username, password: password, socketid: "" });
   }
   res.status(200).json({ status: "received" });
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`SERVER STARTED AT PORT: ${PORT}`);
 });
